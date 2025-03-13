@@ -523,6 +523,9 @@
     width: calc(var(--spacing) * 20);
     height: calc(var(--spacing) * 20);
   }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
   .h-\[70vh\] {
     height: 70vh;
   }
