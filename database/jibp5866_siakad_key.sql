@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `jibp5866_siakad_key`
@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `profiles` (
   `idKey` int NOT NULL,
-  `userDisplay` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `nameDisplay` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `userDisplay` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nameDisplay` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `userKey` varchar(255) NOT NULL,
   `passKey` varchar(255) NOT NULL,
   `levelKey` varchar(255) NOT NULL,
   `bypass` enum('true','false') NOT NULL,
   `detect` enum('true','false') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `profiles`
