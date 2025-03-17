@@ -134,9 +134,9 @@ $result = $conn->query($sql);
                         <div class="profile-information inline text-left ml-4">
                             <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
                             <div class="profile-status flex items-center aling-start gap-1">
-                                <p class="flex items-center w-fit text-[10px] bg-violet-100 border border-violet-300 rounded-lg px-2">
-                                    <i class="mr-1 fa-solid fa-server text-[7px] text-violet-500"></i>
-                                    10.100.10.2
+                                <p class="flex items-center w-fit text-[10px] bg-sky-100 border border-sky-300 rounded-lg px-2">
+                                    <i class="mr-1 fa-solid fa-earth-americas text-[7px] text-sky-500"></i>
+                                    103.153.190.121
                                 </p>
     
                                 <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
