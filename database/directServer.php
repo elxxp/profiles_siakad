@@ -1,17 +1,62 @@
 <?php
+session_start();
 require 'config.php';
+$continue = false;
 
-if(isset($_POST['idKey'])) {
-    $idKey = $_POST['idKey'];
+if(isset($_SESSION['keyOwn'])){
+
+    if(isset($_POST['idKey']) && isset($_POST['keyOwn'])) {
+        $profile = htmlspecialchars($_POST['idKey']);
+        $key = htmlspecialchars($_POST['keyOwn']);
+
+        if($profile != ""){
+
+            if($key == $_SESSION['keyOwn']) {
+
+                if(preg_match("/^\\d+$/", $profile)) {
+                    $sql = "SELECT * FROM profiles WHERE idKey = $profile";
+                    $result = $conn->query($sql);
+                    $data = $result->fetch_assoc();
+
+                    if(mysqli_num_rows($result) > 0) {
+
+                        if($data['bypass'] == 'true'){
+                            @$passKey = base64_decode($data['passKey']);
+                            $continue = true;
+                        } else {
+                            $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Non-Bypassable profile, redirecting...</li>';
+                            header('Refresh:3; url=../views/main');
+                        }
+
+                    } else {
+                        $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Profile unvailable, redirecting...</li>';
+                        header('Refresh:3; url=../views/main');
+                    }
+                    
+                } else {
+                    $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Invalid profile, redirecting...</li>';
+                    header('Refresh:3; url=../views/main');
+                }
+            } else {
+                $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Key invalid, redirecting...</li>';
+                header('Refresh:3; url=../views/main');
+            }
+
+        } else {
+            $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>No profile selected, redirecting...</li>';
+            header('Refresh:3; url=../views/main');
+        }
+
+    } else {
+        $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Invalid request #2, redirecting...</li>';
+        header('Refresh:3; url=../views/main');
+    }
+
 } else {
-    $idKey = 0;
+    $status = '<li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Unknown request, redirecting...</li>';
+    header('Refresh:3; url=../views/main');
 }
 
-$sql = "SELECT * FROM profiles WHERE idKey = $idKey";
-$result = $conn->query($sql);
-$data = $result->fetch_assoc();
-
-@$passKey = base64_decode($data['passKey']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +79,7 @@ $data = $result->fetch_assoc();
     <center>
         <div class="fixed z-100 inset-x-0 mx-auto top-5">
             <ul id="sessionStatus">
-                <?php if(!isset($_POST['idKey'])): ?>
-                <li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>idKey not found, redirecting...</li>
-                <?php endif; ?>
+                <?= @$status ?>
             </ul>
         </div>
     </center>
@@ -48,28 +91,20 @@ $data = $result->fetch_assoc();
     </form>
 </body>
 <script>
-    <?php if(!isset($_POST['idKey'])){ ?>
-
+    <?php if($continue == 'true'): ?>
+    var formSubmitted = false;
+    window.onload = function() {
+        document.getElementById("form").submit();
+        formSubmitted = true;
         setTimeout(function() {
-            window.location.href = '../views/main'
-        }, 2000);
-
-    <?php } else { ?>
-
-        var formSubmitted = false;
-        window.onload = function() {
-            document.getElementById("form").submit();
-            formSubmitted = true;
-            setTimeout(function() {
-                if (formSubmitted) {
-                    window.location.href = 'directError'
-                }
-            }, 5000);
-        };
-        function checkSuccess() {
-            formSubmitted = false;
-        }
-
-    <?php } ?>
+            if (formSubmitted) {
+                window.location.href = 'directError'
+            }
+        }, 5000);
+    };
+    function checkSuccess() {
+        formSubmitted = false;
+    }
+    <?php endif; ?>
 </script>
 </html>

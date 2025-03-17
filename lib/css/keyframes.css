@@ -1,7 +1,7 @@
 .keyf-status {
-    animation: statusIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) alternate;
+    animation: fadeIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) alternate;
 }
-@keyframes statusIn {
+@keyframes fadeIn {
     0% {
         opacity: 0;
         transform: translateY(-5px);
@@ -9,6 +9,20 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+
+.keyf-statusOut {
+    animation: fadeOut 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
     }
 }
 
