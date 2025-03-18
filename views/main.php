@@ -153,7 +153,7 @@ $result = $conn->query($sql);
                                 </p>
                                 <div class="profile-status flex items-center aling-start gap-1">
                                     <p class="flex items-center w-fit text-[10px] bg-sky-100 border border-sky-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-server text-[7px] text-sky-500"></i>
+                                        <i class="mr-1 fa-solid fa-earts-americas text-[7px] text-sky-500"></i>
                                         <span class="max-sm:hidden">103.153.190.121</span>
                                         <span class="min-sm:hidden">Server</span>
                                     </p>
@@ -193,7 +193,7 @@ $result = $conn->query($sql);
                         </div>
         
                         <?php if($data['bypass'] == 'true'){ ?>
-                            <button onclick="directing('local', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
+                            <button onclick="directing('server', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
                                 <i class="fa-regular fa-key text-sm"></i>
                                 <p class="text-[7px]">Get session</p>
                             </button>
@@ -205,7 +205,7 @@ $result = $conn->query($sql);
                         <?php } ?>
         
                         <?php if(isset($_SESSION['keyOwn'])): ?>
-                        <form action="../database/directLocal" method="post" id="profileLocal<?= $order ?>" class="hidden">
+                        <form action="../database/directServer" method="post" id="profileServer<?= $order ?>" class="hidden">
                             <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
                             <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
                         </form>
