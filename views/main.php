@@ -60,7 +60,7 @@ $result = $conn->query($sql);
                 <p class="text-sm flex justify-center items-center"><i class="hgi hgi-stroke hgi-square-lock-remove-01 mr-1"></i>Key not found, get your key<span onclick="location.href='../auth/gate'" class="font-semibold cursor-pointer hover:underline ml-1">here</span></p>
             <?php } ?>
 
-            <div class="profiles w-150 h-[70vh] mt-5 bg-gray-100 border border-gray-300 p-7 rounded-xl overflow-y-scroll">
+            <div class="profiles w-150 h-[70vh] mt-5 bg-gray-100 border border-gray-300 p-7 rounded-xl overflow-y-scroll max-sm:w-90">
                 <div class="search-box w-full flex justify-left items-center bg-gray-200 border border-gray-300 px-4 py-2 rounded-lg mb-3">
                     <i class="fa-solid fa-magnifying-glass mr-4"></i>
                     <input class="outline-none w-full" id="searchProfiles" type="text" name="search" autocomplete="off" placeholder="Search anything...">
@@ -71,12 +71,18 @@ $result = $conn->query($sql);
                     <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
                         <div class="inner-profile flex items-center">
                             <i class="fa-solid fa-user text-base"></i>
-                            <div class="profile-information inline text-left ml-4">
-                                <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
+                            <?= ($data['detect'] == 'true' && $data['bypass'] == 'true')?'<span class="min-sm:hidden"><i class="fa-solid fa-triangle-exclamation text-[7px] text-orange-500 max-sm:-mr-1.5"></i></span>':'' ?>
+                            <div class="profile-information inline text-left ml-4 max-sm:ml-4">
+                                <p class="font-semibold">
+                                    <span class="max-sm:hidden"><?= $data['userDisplay'] ?></span>
+                                    <span class="min-sm:hidden max-sm:text-xs"><?= $data['nameDisplay'] ?></span>
+                                    <span class="font-normal text-xs ml-1 max-sm:hidden"><?= $data['nameDisplay'] ?></span>
+                                </p>
                                 <div class="profile-status flex items-center aling-start gap-1">
                                     <p class="flex items-center w-fit text-[10px] bg-violet-100 border border-violet-300 rounded-lg px-2">
                                         <i class="mr-1 fa-solid fa-server text-[7px] text-violet-500"></i>
-                                        10.100.10.2
+                                        <span class="max-sm:hidden">10.100.10.2</span>
+                                        <span class="min-sm:hidden">Local</span>
                                     </p>
         
                                     <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
@@ -85,12 +91,12 @@ $result = $conn->query($sql);
                                     </p>
         
                                     <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
                                             Undetected
                                         </p>
                                     <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
                                             Not secure
                                         </p>
@@ -99,12 +105,12 @@ $result = $conn->query($sql);
                                     <?php } ?>
         
                                     <?php if($data['bypass'] == 'true'){ ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
                                             Bypassed
                                         </p>
                                     <?php } else { ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
                                             un-Bypassed
                                         </p>
@@ -138,12 +144,18 @@ $result = $conn->query($sql);
                     <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
                         <div class="inner-profile flex items-center">
                             <i class="fa-solid fa-user text-base"></i>
-                            <div class="profile-information inline text-left ml-4">
-                                <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
+                            <?= ($data['detect'] == 'true' && $data['bypass'] == 'true')?'<span class="min-sm:hidden"><i class="fa-solid fa-triangle-exclamation text-[7px] text-orange-500 max-sm:-mr-1.5"></i></span>':'' ?>
+                            <div class="profile-information inline text-left ml-4 max-sm:ml-4">
+                                <p class="font-semibold">
+                                    <span class="max-sm:hidden"><?= $data['userDisplay'] ?></span>
+                                    <span class="min-sm:hidden max-sm:text-xs"><?= $data['nameDisplay'] ?></span>
+                                    <span class="font-normal text-xs ml-1 max-sm:hidden"><?= $data['nameDisplay'] ?></span>
+                                </p>
                                 <div class="profile-status flex items-center aling-start gap-1">
                                     <p class="flex items-center w-fit text-[10px] bg-sky-100 border border-sky-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-earth-americas text-[7px] text-sky-500"></i>
-                                        103.153.190.121
+                                        <i class="mr-1 fa-solid fa-server text-[7px] text-sky-500"></i>
+                                        <span class="max-sm:hidden">103.153.190.121</span>
+                                        <span class="min-sm:hidden">Server</span>
                                     </p>
         
                                     <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
@@ -152,12 +164,12 @@ $result = $conn->query($sql);
                                     </p>
         
                                     <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
                                             Undetected
                                         </p>
                                     <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
                                             Not secure
                                         </p>
@@ -166,12 +178,12 @@ $result = $conn->query($sql);
                                     <?php } ?>
         
                                     <?php if($data['bypass'] == 'true'){ ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
                                             Bypassed
                                         </p>
                                     <?php } else { ?>
-                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
+                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2 max-sm:hidden">
                                             <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
                                             un-Bypassed
                                         </p>
@@ -181,7 +193,7 @@ $result = $conn->query($sql);
                         </div>
         
                         <?php if($data['bypass'] == 'true'){ ?>
-                            <button onclick="directing('server', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
+                            <button onclick="directing('local', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
                                 <i class="fa-regular fa-key text-sm"></i>
                                 <p class="text-[7px]">Get session</p>
                             </button>
@@ -193,7 +205,7 @@ $result = $conn->query($sql);
                         <?php } ?>
         
                         <?php if(isset($_SESSION['keyOwn'])): ?>
-                        <form action="../database/directServer" method="post" id="profileServer<?= $order ?>" class="hidden">
+                        <form action="../database/directLocal" method="post" id="profileLocal<?= $order ?>" class="hidden">
                             <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
                             <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
                         </form>
@@ -304,6 +316,7 @@ $result = $conn->query($sql);
 
         searchInput.addEventListener("keyup", function() {
             let query = searchInput.value;
+            resultsContainer.innerHTML = '<p class="loading mt-55">Loading...</p>'
             
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "../database/findProfiles.php", true);
