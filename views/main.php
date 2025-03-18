@@ -61,142 +61,148 @@ $result = $conn->query($sql);
             <?php } ?>
 
             <div class="profiles w-150 h-[70vh] mt-5 bg-gray-100 border border-gray-300 p-7 rounded-xl overflow-y-scroll">
-                <?php $order = 0; foreach($result as $data): $order++; ?>
-                <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
-                    <div class="inner-profile flex items-center">
-                        <i class="fa-solid fa-user text-base"></i>
-                        <div class="profile-information inline text-left ml-4">
-                            <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
-                            <div class="profile-status flex items-center aling-start gap-1">
-                                <p class="flex items-center w-fit text-[10px] bg-violet-100 border border-violet-300 rounded-lg px-2">
-                                    <i class="mr-1 fa-solid fa-server text-[7px] text-violet-500"></i>
-                                    10.100.10.2
-                                </p>
-    
-                                <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
-                                    <i class="mr-1 fa-regular fa-cards-blank text-[7px] text-zinc-500"></i>
-                                    <?= ucfirst($data['levelKey']) ?>
-                                </p>
-    
-                                <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ // check log detetcted ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
-                                        Undetected
+                <div class="search-box w-full flex justify-left items-center bg-gray-200 border border-gray-300 px-4 py-2 rounded-lg mb-3">
+                    <i class="fa-solid fa-magnifying-glass mr-4"></i>
+                    <input class="outline-none w-full" id="searchProfiles" type="text" name="search" autocomplete="off" placeholder="Search anything...">
+                </div>
+
+                <div id="profiles">
+                    <?php $order = 0; foreach($result as $data): $order++; ?>
+                    <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
+                        <div class="inner-profile flex items-center">
+                            <i class="fa-solid fa-user text-base"></i>
+                            <div class="profile-information inline text-left ml-4">
+                                <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
+                                <div class="profile-status flex items-center aling-start gap-1">
+                                    <p class="flex items-center w-fit text-[10px] bg-violet-100 border border-violet-300 rounded-lg px-2">
+                                        <i class="mr-1 fa-solid fa-server text-[7px] text-violet-500"></i>
+                                        10.100.10.2
                                     </p>
-                                <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
-                                        Not secure
+        
+                                    <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
+                                        <i class="mr-1 fa-regular fa-cards-blank text-[7px] text-zinc-500"></i>
+                                        <?= ucfirst($data['levelKey']) ?>
                                     </p>
-                                <?php } else { ?>
-                                    <!-- blank -->
-                                <?php } ?>
-    
-                                <?php if($data['bypass'] == 'true'){ ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
-                                        Bypassed
-                                    </p>
-                                <?php } else { ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
-                                        un-Bypassed
-                                    </p>
-                                <?php } ?>
+        
+                                    <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
+                                            Undetected
+                                        </p>
+                                    <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
+                                            Not secure
+                                        </p>
+                                    <?php } else { ?>
+                                        <!-- blank -->
+                                    <?php } ?>
+        
+                                    <?php if($data['bypass'] == 'true'){ ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
+                                            Bypassed
+                                        </p>
+                                    <?php } else { ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
+                                            un-Bypassed
+                                        </p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
+        
+                        <?php if($data['bypass'] == 'true'){ ?>
+                            <button onclick="directing('local', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
+                                <i class="fa-regular fa-key text-sm"></i>
+                                <p class="text-[7px]">Get session</p>
+                            </button>
+                        <?php } else { ?>
+                            <div class="direct opacity-50 bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-not-allowed">
+                                <i class="fa-regular fa-lock text-sm"></i>
+                                <p class="text-[7px]">Get session</p>
+                            </div>
+                        <?php } ?>
+        
+                        <?php if(isset($_SESSION['keyOwn'])): ?>
+                        <form action="../database/directLocal" method="post" id="profileLocal<?= $order ?>" class="hidden">
+                            <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
+                            <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
+                        </form>
+                        <?php endif; ?>
                     </div>
-    
-                    <?php if($data['bypass'] == 'true'){ ?>
-                        <button onclick="directing('local', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
-                            <i class="fa-regular fa-key text-sm"></i>
-                            <p class="text-[7px]">Get session</p>
-                        </button>
-                    <?php } else { ?>
-                        <div class="direct opacity-50 bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-not-allowed">
-                            <i class="fa-regular fa-lock text-sm"></i>
-                            <p class="text-[7px]">Get session</p>
-                        </div>
-                    <?php } ?>
-    
-                    <?php if(isset($_SESSION['keyOwn'])): ?>
-                    <form action="../database/directLocal" method="post" id="profileLocal<?= $order ?>" class="hidden">
-                        <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
-                        <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
-                    </form>
-                    <?php endif; ?>
-                </div>
-                <?php endforeach; ?>
-                <!-- -->
-                <?php $order = 0; foreach($result as $data): $order++; ?>
-                <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
-                    <div class="inner-profile flex items-center">
-                        <i class="fa-solid fa-user text-base"></i>
-                        <div class="profile-information inline text-left ml-4">
-                            <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
-                            <div class="profile-status flex items-center aling-start gap-1">
-                                <p class="flex items-center w-fit text-[10px] bg-sky-100 border border-sky-300 rounded-lg px-2">
-                                    <i class="mr-1 fa-solid fa-earth-americas text-[7px] text-sky-500"></i>
-                                    103.153.190.121
-                                </p>
-    
-                                <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
-                                    <i class="mr-1 fa-regular fa-cards-blank text-[7px] text-zinc-500"></i>
-                                    <?= ucfirst($data['levelKey']) ?>
-                                </p>
-    
-                                <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ // check log detetcted ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
-                                        Undetected
+                    <?php endforeach; ?>
+                    <!-- -->
+                    <?php $order = 0; foreach($result as $data): $order++; ?>
+                    <div class="profile flex items-center justify-between w-full bg-gray-100 border border-gray-300 rounded-lg px-5 py-2 mb-3 shadow-sm">
+                        <div class="inner-profile flex items-center">
+                            <i class="fa-solid fa-user text-base"></i>
+                            <div class="profile-information inline text-left ml-4">
+                                <p class="font-semibold"><?= $data['userDisplay'] ?><span class="font-normal text-xs ml-1"><?= $data['nameDisplay'] ?></span></p>
+                                <div class="profile-status flex items-center aling-start gap-1">
+                                    <p class="flex items-center w-fit text-[10px] bg-sky-100 border border-sky-300 rounded-lg px-2">
+                                        <i class="mr-1 fa-solid fa-earth-americas text-[7px] text-sky-500"></i>
+                                        103.153.190.121
                                     </p>
-                                <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
-                                        Not secure
+        
+                                    <p class="flex items-center w-fit text-[10px] bg-zinc-100 border border-zinc-300 rounded-lg px-2">
+                                        <i class="mr-1 fa-regular fa-cards-blank text-[7px] text-zinc-500"></i>
+                                        <?= ucfirst($data['levelKey']) ?>
                                     </p>
-                                <?php } else { ?>
-                                    <!-- blank -->
-                                <?php } ?>
-    
-                                <?php if($data['bypass'] == 'true'){ ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
-                                        Bypassed
-                                    </p>
-                                <?php } else { ?>
-                                    <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
-                                        <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
-                                        un-Bypassed
-                                    </p>
-                                <?php } ?>
+        
+                                    <?php if($data['detect'] == 'false' && $data['bypass'] == 'true'){ ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-regular fa-user-secret text-[7px] text-green-500"></i>
+                                            Undetected
+                                        </p>
+                                    <?php } elseif($data['detect'] == 'true' && $data['bypass'] == 'true') { ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-orange-100 border border-orange-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-triangle-exclamation text-[7px] text-orange-500"></i>
+                                            Not secure
+                                        </p>
+                                    <?php } else { ?>
+                                        <!-- blank -->
+                                    <?php } ?>
+        
+                                    <?php if($data['bypass'] == 'true'){ ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-green-100 border border-green-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-lock-open text-[6px] text-green-500"></i>
+                                            Bypassed
+                                        </p>
+                                    <?php } else { ?>
+                                        <p class="flex items-center w-fit text-[10px] bg-red-100 border border-red-300 rounded-lg px-2">
+                                            <i class="mr-1 fa-solid fa-lock text-[6px] text-red-500"></i>
+                                            un-Bypassed
+                                        </p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
+        
+                        <?php if($data['bypass'] == 'true'){ ?>
+                            <button onclick="directing('server', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
+                                <i class="fa-regular fa-key text-sm"></i>
+                                <p class="text-[7px]">Get session</p>
+                            </button>
+                        <?php } else { ?>
+                            <div class="direct opacity-50 bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-not-allowed">
+                                <i class="fa-regular fa-lock text-sm"></i>
+                                <p class="text-[7px]">Get session</p>
+                            </div>
+                        <?php } ?>
+        
+                        <?php if(isset($_SESSION['keyOwn'])): ?>
+                        <form action="../database/directServer" method="post" id="profileServer<?= $order ?>" class="hidden">
+                            <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
+                            <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
+                        </form>
+                        <?php endif; ?>
                     </div>
-    
-                    <?php if($data['bypass'] == 'true'){ ?>
-                        <button onclick="directing('server', <?= $order ?>)" class="direct bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-pointer">
-                            <i class="fa-regular fa-key text-sm"></i>
-                            <p class="text-[7px]">Get session</p>
-                        </button>
-                    <?php } else { ?>
-                        <div class="direct opacity-50 bg-gray-200 border border-gray-300 rounded-lg px-1.5 py-1 cursor-not-allowed">
-                            <i class="fa-regular fa-lock text-sm"></i>
-                            <p class="text-[7px]">Get session</p>
-                        </div>
-                    <?php } ?>
-    
-                    <?php if(isset($_SESSION['keyOwn'])): ?>
-                    <form action="../database/directServer" method="post" id="profileServer<?= $order ?>" class="hidden">
-                        <input type="hidden" name="idKey" value="<?= $data['idKey'] ?>">
-                        <input type="hidden" name="keyOwn" value="<?= $_SESSION['keyOwn'] ?>">
-                    </form>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <p class="text-xs mt-5">Querying <span class="font-semibold"><?= mysqli_num_rows($result) * 2 ?> profiles</span> in total~</p>
                 </div>
-                <?php endforeach; ?>
-                
-                <p class="text-xs mt-5">Querying <span class="font-semibold"><?= mysqli_num_rows($result) * 2 ?> profiles</span> in total~</p>
-    
             </div>
         </div>
     </center>
@@ -213,7 +219,7 @@ $result = $conn->query($sql);
             document.getElementById('cancel').classList.replace('bg-gray-300', 'bg-red-100')
             document.getElementById('cancel').classList.add('text-red-600')
             document.getElementById('cancel').classList.replace('cursor-default', 'cursor-not-allowed')
-        }, 1000);
+        }, 10000);
         location.reload()
     }
 
@@ -291,6 +297,25 @@ $result = $conn->query($sql);
         }, 6000);
         <?php } ?>
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('searchProfiles')
+        const resultsContainer = document.getElementById('profiles')
+
+        searchInput.addEventListener("keyup", function() {
+            let query = searchInput.value;
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "../database/findProfiles.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    resultsContainer.innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send("query=" + encodeURIComponent(query));
+        });
+    });
 
     setTimeout(function(){
         document.getElementById('error').classList.add('hidden');
