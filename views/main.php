@@ -26,6 +26,7 @@ $result = $conn->query($sql);
         <div id="loading" class="flex items-center justify-center fixed z-100 top-[50%] left-[50%] translate-[-50%] size-20 bg-gray-100 rounded-xl hidden">
             <i class="fa-solid fa-spinner-third fa-spin fa-spin-reverse absolute text-gray-300 text-3xl" style="--fa-animation-duration: 1s;"></i>
             <i class="fa-solid fa-spinner-third fa-spin text-3xl"></i>
+            <button id="cancel" onclick="stopAct()" class="flex items-center justify-center fixed z-100 top-[65%] left-[50%] translate-[-50%] w-32 h-8 bg-gray-100 rounded-md mt-15 text-xs cursor-pointer"><i class="fa-regular fa-arrow-left-to-line mr-1"></i>cancel request</button>
         </div>
 
         <div class="fixed z-100 inset-x-0 mx-auto top-5">
@@ -201,6 +202,21 @@ $result = $conn->query($sql);
     </center>
 </body>
 <script>
+    function stopAct(){
+        document.getElementById('cancel').innerHTML = "<i class='fa-solid fa-spinner-third fa-spin'></i>"
+        document.getElementById('cancel').setAttribute('disabled', '')
+        document.getElementById('cancel').classList.replace('bg-gray-100', 'bg-gray-300')
+        document.getElementById('cancel').classList.replace('cursor-pointer', 'cursor-default')
+        
+        setTimeout(() => {
+            document.getElementById('cancel').innerHTML = "<i class='fa-solid fa-circle-xmark mr-1.5 text-[10px]'></i> Error canceling"
+            document.getElementById('cancel').classList.replace('bg-gray-300', 'bg-red-100')
+            document.getElementById('cancel').classList.add('text-red-600')
+            document.getElementById('cancel').classList.replace('cursor-default', 'cursor-not-allowed')
+        }, 1000);
+        location.reload()
+    }
+
     function directing(server, order){
         document.getElementById('o1').classList.add('hidden');
         document.getElementById('o2').classList.add('hidden');
@@ -215,50 +231,50 @@ $result = $conn->query($sql);
         document.getElementById('overlay').classList.remove('hidden');
         document.getElementById('loading').classList.remove('hidden');
 
-        setTimeout(function(){
+        setTimeout(function(){// checking key
             document.getElementById('o1').classList.remove('hidden');
         }, 500);
 
-        setTimeout(function(){
+        setTimeout(function(){ // status key
             document.getElementById('o1').classList.add('hidden');
             document.getElementById('o2').classList.remove('hidden');
-        }, 2000);
+        }, 1000);
 
-        setTimeout(function(){
+        setTimeout(function(){ // creating session
             document.getElementById('o2').classList.add('hidden');
             document.getElementById('o3').classList.remove('hidden');
-        }, 3000);
+        }, 2000);
 
-        setTimeout(function(){
+        setTimeout(function(){ // status session
             document.getElementById('o3').classList.add('hidden');
             document.getElementById('o4').classList.remove('hidden');
-        }, 6000);
+        }, 3000);
 
-        setTimeout(function(){
+        setTimeout(function(){ // injecting
             document.getElementById('o4').classList.add('hidden');
             document.getElementById('o5').classList.remove('hidden');
-        }, 7000);
+        }, 4000);
 
-        setTimeout(function(){
+        setTimeout(function(){ // status injecting
             document.getElementById('o5').classList.add('hidden');
             document.getElementById('o6').classList.remove('hidden');
         }, 11000);
 
-        setTimeout(function(){
+        setTimeout(function(){ // directing
             document.getElementById('o6').classList.add('hidden');
             document.getElementById('o7').classList.remove('hidden');
         }, 12000);
-
+        
         <?php if(isset($_SESSION['keyOwn'])): ?>
-        setTimeout(function(){
-            if(server == 'local'){
-                let profile = 'profileLocal' + order
-                document.getElementById(profile).submit();
-            } else {
-                let profile = 'profileServer' + order
-                document.getElementById(profile).submit();
-            }
-        }, 14000);
+            setTimeout(function(){ // submiting
+                if(server == 'local'){
+                    let profile = 'profileLocal' + order
+                    document.getElementById(profile).submit();
+                } else {
+                    let profile = 'profileServer' + order
+                    document.getElementById(profile).submit();
+                }
+            }, 14000);
         <?php endif; ?>
         
         <?php if(isset($_SESSION['keyOwn'])){ ?>

@@ -143,7 +143,7 @@ $_SESSION['token'] = $token;
         vanish()
       }
     } else {
-      document.getElementById('temporary').innerHTML = '<div id="temporaryStatus" class="fixed z-100 inset-x-0 mx-auto top-5 flex items-center justify-center w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Information cannot be em    pty</div>'
+      document.getElementById('temporary').innerHTML = '<div id="temporaryStatus" class="fixed z-100 inset-x-0 mx-auto top-5 flex items-center justify-center w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Information cannot be empty</div>'
       console.log('empty')
       vanish()
     }
