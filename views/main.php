@@ -35,6 +35,10 @@ $result = $conn->query($sql);
                     <li id="error" class="w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Error directing, try again</li>
                 <?php endif; ?>
 
+                <?php if(isset($_COOKIE['logout'])): ?>
+                    <li id="error" class="w-fit text-xs text-green-600 bg-green-100 border border-green-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-check mr-2"></i>Logout success, key has been destroyed</li>
+                <?php endif; ?>
+
                 <?php if(isset($_SESSION['keyOwn'])){ ?>
                     <li id="o1" class="hidden w-fit text-xs bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-spinner-third fa-spin mr-2"></i>Checking key...</li>
                     <li id="o2" class="hidden w-fit text-xs text-green-600 bg-green-100 border border-green-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>Key verified</li>
@@ -316,7 +320,7 @@ $result = $conn->query($sql);
 
         searchInput.addEventListener("keyup", function() {
             let query = searchInput.value;
-            resultsContainer.innerHTML = '<p class="loading mt-55">Loading...</p>'
+            resultsContainer.innerHTML = '<p class="loading mt-55">Querying...</p>'
             
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "../fetch/findProfiles.php", true);
@@ -331,7 +335,7 @@ $result = $conn->query($sql);
     });
 
     setTimeout(function(){
-        document.getElementById('error').classList.add('hidden');
-    }, 2000);
+        document.getElementById('error').classList.add('keyf-statusOut');
+    }, 3000);
 </script>
 </html>

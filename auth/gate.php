@@ -130,29 +130,40 @@ $_SESSION['token'] = $token;
             document.getElementById('controlUsername').removeAttribute('disabled');
             document.getElementById('controlPassword').removeAttribute('disabled');
             document.querySelector('form').submit();
-            console.log('submitted')
           }, 1500);
         } else {
           document.getElementById('temporary').innerHTML = '<div id="temporaryStatus" class="fixed z-100 inset-x-0 mx-auto top-5 flex items-center justify-center w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Insert password first</div>'
-          console.log('password empty')
           vanish()
         }
       } else {
         document.getElementById('temporary').innerHTML = '<div id="temporaryStatus" class="fixed z-100 inset-x-0 mx-auto top-5 flex items-center justify-center w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Insert username first</div>'
-        console.log('username empty')
         vanish()
       }
     } else {
       document.getElementById('temporary').innerHTML = '<div id="temporaryStatus" class="fixed z-100 inset-x-0 mx-auto top-5 flex items-center justify-center w-fit text-xs text-red-600 bg-red-100 border border-red-300 rounded-lg px-4 py-2 mb-1 keyf-status"><i class="fa-solid fa-circle-xmark mr-2"></i>Information cannot be empty</div>'
-      console.log('empty')
       vanish()
     }
   }
 
   function vanish(){
     setTimeout(() => {
-      document.getElementById('temporaryStatus').classList.add('vanish')
-    }, 2000);
+      document.getElementById('temporaryStatus').classList.add('keyf-statusOut')
+    }, 1000);
   }
+
+  let inUser = document.getElementById('controlUsername')
+  inUser.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      get()
+    }
+  })
+  let inPass = document.getElementById('controlPassword')
+  inPass.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      get()
+    }
+  })
 </script>
 </html>
