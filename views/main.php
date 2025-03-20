@@ -306,7 +306,7 @@ $result = $conn->query($sql);
             document.getElementById('overlay').classList.add('hidden');
             document.getElementById('loading').classList.add('hidden');
             // document.getElementById('o7').classList.add('hidden');
-        }, 6000);
+        }, 3000);
         <?php } ?>
     }
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../database/config.php';
 
 if(isset($_POST['query'])){
