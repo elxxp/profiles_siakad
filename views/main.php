@@ -319,7 +319,7 @@ $result = $conn->query($sql);
             resultsContainer.innerHTML = '<p class="loading mt-55">Loading...</p>'
             
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "../database/findProfiles.php", true);
+            xhr.open("POST", "../fetch/findProfiles.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
